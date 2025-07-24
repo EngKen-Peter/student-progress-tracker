@@ -9,8 +9,7 @@ export const SocketProvider = ({ children }) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    // Adjust the URL if your backend is deployed elsewhere
-    socketRef.current = io('http://localhost:5000');
+    socketRef.current = io(import.meta.env.VITE_API_URL);
     return () => {
       socketRef.current.disconnect();
     };
