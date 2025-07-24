@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError('');
     try {
-      const res = await apiLogin(email, password);
+      const res = await apiLogin({ email, password });
       setUser(res.data.user);
       setToken(res.data.token);
       setLoading(false);
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(true);
     setError('');
     try {
-      await apiRegister(name, email, password, role);
+      await apiRegister({ name, email, password, role });
       // Optionally auto-login after register
       const loginRes = await login(email, password);
       setLoading(false);
