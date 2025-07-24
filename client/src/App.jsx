@@ -1,11 +1,35 @@
-import React from "react";
-import StudentList from "./pages/StudentList";
+import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import TeacherDashboard from './pages/TeacherDashboard';
+import StudentDashboard from './pages/StudentDashboard';
+import ParentDashboard from './pages/ParentDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-3xl font-bold text-center mb-8">Student Progress Tracker</h1>
-      <StudentList />
+    <div className="min-h-screen bg-gray-50">
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/teacher" element={
+          <ProtectedRoute role="teacher">
+            <TeacherDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/student" element={
+          <ProtectedRoute role="student">
+            <StudentDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/parent" element={
+          <ProtectedRoute role="parent">
+            <ParentDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
     </div>
   );
 };
